@@ -44,6 +44,7 @@ resultat.data.forEach(element => {
 
     
 });
+recherche(resultat.data);
 
 
 }).catch(error =>{
@@ -53,25 +54,52 @@ resultat.data.forEach(element => {
 //   console.log(resultat.data);
 }
 
-function recherche()
+function recherche(array)
 {
     let recherchee = document.getElementById("serch");
 
     recherchee.addEventListener("input", (event) =>{
         event.preventDefault();
         let inpuut = recherchee.value;
-        console.log(inpuut.toLowerCase());
 
+        let result = array.filter((ele) => ele.book.title.toLowerCase().includes(inpuut.toLowerCase()) || ele.book.author.toLowerCase().includes(inpuut.toLowerCase()))
+         const container = document.querySelector("#container");
+         container.innerHTML = "";
+    result.forEach(element => {
+    const card = document.createElement("div");
+    card.innerHTML+= `<p><b>${element.owner.name}</b> <span class="tag">${element.exchange_type}</span></p>
+        <div class="books">
+          <div class="book-box">
+            <div class="cover green">
+             
+             </div>
+            <h4>${element.book.title}</h4>
+            <small>${element.book.author}</small>
+          </div>
+          <div class="book-box">
+            <div class="cover red" >
+            
+            </div>
+            <h4>${element.offers[0].offered_book.title}</h4>
+            <small>${element.offers[0].offered_book.author}</small>
+          </div>
+        </div>
+        <p>Durée : ${element.end_date}</p>
+        <a class="link" href="#">Voir la demande →</a>`
+
+        container.appendChild(card);
+
+
+
+    
+});
 
     })
+   
     
-
-    
-
-
 }
 
-recherche()
+
 
 
 
