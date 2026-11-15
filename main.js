@@ -15,36 +15,12 @@ function chargerDemandes()
     }).then((resultat) =>{
 
         console.log(resultat.data);
-        const container = document.querySelector("#container");
-resultat.data.forEach(element => {
-    const card = document.createElement("div");
-    card.innerHTML+= `<p><b>${element.owner.name}</b> <span class="tag">${element.exchange_type}</span></p>
-        <div class="books">
-          <div class="book-box">
-            <div class="cover green">
-             
-             </div>
-            <h4>${element.book.title}</h4>
-            <small>${element.book.author}</small>
-          </div>
-          <div class="book-box">
-            <div class="cover red" >
-            
-            </div>
-            <h4>${element.offers[0].offered_book.title}</h4>
-            <small>${element.offers[0].offered_book.author}</small>
-          </div>
-        </div>
-        <p>Durée : ${element.end_date}</p>
-        <a class="link" href="#">Voir la demande →</a>`
-
-        container.appendChild(card);
-
-
-
-    
-});
-recherche(resultat.data);
+        // const arryofdata = resultat.data;
+        afficher(resultat.data);
+       recherche(resultat.data);
+        temporair(resultat.data);
+        permanent(resultat.data);
+        tout(resultat.data);
 
 
 }).catch(error =>{
@@ -65,8 +41,17 @@ function recherche(array)
         let result = array.filter((ele) => ele.book.title.toLowerCase().includes(inpuut.toLowerCase()) || ele.book.author.toLowerCase().includes(inpuut.toLowerCase()))
          const container = document.querySelector("#container");
          container.innerHTML = "";
-    result.forEach(element => {
+         afficher(result);
+   
+
+    }) 
+}
+function afficher(array)
+{
+    const container = document.querySelector("#container");
+          array.forEach(element => {
     const card = document.createElement("div");
+    card.classList.add("card");
     card.innerHTML+= `<p><b>${element.owner.name}</b> <span class="tag">${element.exchange_type}</span></p>
         <div class="books">
           <div class="book-box">
@@ -93,10 +78,43 @@ function recherche(array)
 
     
 });
+}
+function temporair(array)
+{
+     const btemporair = document.getElementById("temporair");
+     btemporair.addEventListener("click",(event) =>{
+
+        event.preventDefault();
+        let result = array.filter((element) => element.exchange_type === "temporary");
+        const container = document.querySelector("#container");
+         container.innerHTML = "";
+         afficher(result);
+        
+
+     })
+
+}
+function permanent(array)
+{
+    const btpermanent = document.getElementById("definitif");
+    btpermanent.addEventListener("click", (event) =>{
+        event.preventDefault();
+        let result = array.filter((element) => element.exchange_type === "permanent");
+         const container = document.querySelector("#container");
+         container.innerHTML = "";
+         afficher(result);
+    })
+
+}
+function tout(array)
+{
+    const btntout = document.getElementById("tout");
+    btntout.addEventListener("click",(event) =>{
+        event.preventDefault();
+        afficher(array)
 
     })
-   
-    
+
 }
 
 

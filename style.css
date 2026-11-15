@@ -55,6 +55,7 @@ body {
     .cards {
       display: flex;
       gap: 15px;
+      
     }
     .card {
       background-color: white;
@@ -62,6 +63,7 @@ body {
       border-radius: 10px;
       padding: 15px;
       width: 45%;
+      
       
       
     }
